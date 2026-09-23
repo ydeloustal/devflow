@@ -8,7 +8,9 @@ const initialTasks: Task[] = [
   { id: 'task-1', title: 'Refondre le tableau de bord client', description: 'Repenser la hiérarchie des informations et intégrer les nouveaux indicateurs de performance.', status: 'in_progress', priority: 'high', assignee: frontend, tags: ['UI', 'Dashboard'], estimatedHours: 12, createdAt: '2026-09-02' },
   { id: 'task-2', title: 'Sécuriser le webhook de paiement', description: 'Ajouter la validation de signature et la gestion des événements rejoués.', status: 'in_review', priority: 'urgent', assignee: backend, tags: ['API', 'Sécurité'], estimatedHours: 8, createdAt: '2026-09-04' },
   { id: 'task-3', title: 'Préparer les tests de recette', description: 'Structurer les scénarios de recette pour la prochaine livraison.', status: 'todo', priority: 'medium', assignee: lead, tags: ['QA', 'Sprint'], estimatedHours: 6, createdAt: '2026-09-08' },
-  { id: 'task-4', title: 'Optimiser le chargement initial', description: 'Réduire le poids JavaScript et améliorer les métriques Web Vitals.', status: 'done', priority: 'low', assignee: frontend, tags: ['Performance'], estimatedHours: 5, createdAt: '2026-08-25', completedAt: '2026-09-06' }
+  { id: 'task-4', title: 'Optimiser le chargement initial', description: 'Réduire le poids JavaScript et améliorer les métriques Web Vitals.', status: 'done', priority: 'low', assignee: frontend, tags: ['Performance'], estimatedHours: 5, createdAt: '2026-08-25', completedAt: '2026-09-06' },
+  { id: 'task-5', title: 'Test1', description: 'Test', status: 'done', priority: 'low', assignee: frontend, tags: ['Performance'], estimatedHours: 5, createdAt: '2026-08-25', completedAt: '2026-09-06' },
+  { id: 'task-6', title: 'Delete .env', description: 'Réduire le poids du git', status: 'done', priority: 'low', assignee: frontend, tags: ['Performance'], estimatedHours: 5, createdAt: '2026-08-25', completedAt: '2026-09-06' }
 ]
 
 export const useTasks = () => {
