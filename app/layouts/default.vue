@@ -25,7 +25,7 @@ const navigation = [
 
 <style scoped>
 .shell { background: #f7f8f5; color: #17211b; display: flex; min-height: 100vh; }
-.sidebar { background: #17352b; color: #d9e8df; display: flex; flex-direction: column; padding: 28px 20px; width: 250px; }
+.sidebar { background: #17352b; color: #d9e8df; display: flex; flex-direction: column; padding: 28px 20px; width: 250px; position: fixed; height: 100vh; }
 .brand { align-items: center; color: #fff; display: flex; font-size: 1.2rem; font-weight: 800; gap: 10px; text-decoration: none; }
 .brand-mark { align-items: center; background: #b8ef72; border-radius: 9px; color: #17352b; display: flex; height: 32px; justify-content: center; width: 32px; }
 .eyebrow { color: #8fac9e; font-size: .7rem; letter-spacing: .08em; margin: 50px 10px 14px; text-transform: uppercase; }

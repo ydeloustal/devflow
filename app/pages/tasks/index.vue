@@ -20,10 +20,10 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('fr-FR', { day: 'nu
       <NuxtLink class="profile" to="/team"><UserAvatar :user="{ name: 'DevSquad' }" size="sm" /><span>Mon équipe</span></NuxtLink>
     </header>
     <section class="metrics" aria-label="Métriques du sprint">
-      <article><span class="metric-label">Tâches totales</span><strong>{{ totalTasks }}</strong><small>dans le sprint</small></article>
-      <article><span class="metric-label">En attente</span><strong>{{ pendingTasks }}</strong><small>à traiter</small></article>
-      <article class="metric-alert"><span class="metric-label">Priorité urgente</span><strong>{{ urgentTasks }}</strong><small>à surveiller</small></article>
-      <article><span class="metric-label">Progression</span><strong>{{ completionRate }}%</strong><small>{{ totalEstimatedHours }}h estimées</small></article>
+      <article><h3 class="metric-label">Tâches totales</h3><strong>{{ totalTasks }}</strong><small>dans le sprint</small></article>
+      <article><h3 class="metric-label">En attente</h3><strong>{{ pendingTasks }}</strong><small>à traiter</small></article>
+      <article class="metric-alert"><h3 class="metric-label">Priorité urgente</h3><strong>{{ urgentTasks }}</strong><small>à surveiller</small></article>
+      <article><h3 class="metric-label">Progression</h3><strong>{{ completionRate }}%</strong><small>{{ totalEstimatedHours }}h estimées</small></article>
     </section>
     <section class="work-area">
       <div class="section-heading"><div><p class="kicker">Vue opérationnelle</p><h2>Les tâches du sprint</h2></div><span class="count">{{ completedTasks }}/{{ totalTasks }} terminées</span></div>
@@ -55,9 +55,10 @@ h1 { font-size: clamp(2.2rem, 5vw, 4rem); letter-spacing: -.05em; margin: 0; }
 h1 span { color: #4c9d50; }
 .subtitle { color: #718078; margin: 10px 0 0; }
 .profile { align-items: center; color: #17352b; display: flex; font-size: .85rem; font-weight: 700; gap: 8px; text-decoration: none; }
-.metrics { display: grid; gap: 14px; grid-template-columns: repeat(4, 1fr); margin: 52px 0 62px; }
-.metrics article { background: #fff; border: 1px solid #e3eae4; border-radius: 9px; padding: 20px; }
-.metric-label, .metrics small { color: #718078; display: block; font-size: .78rem; }
+.metrics { display: flex; gap: 14px; margin: 52px 0 62px; flex-wrap: wrap; }
+.metrics article { background: #fff; border: 1px solid #e3eae4; border-radius: 9px; padding: 20px; flex: 1; text-align: center; min-width: 160px; }
+.metric-label { color: #17352b; display: block; font-size: .90rem; }
+.metrics small { color: #718078; display: block; font-size: .78rem; }
 .metrics strong { display: block; font-size: 2.2rem; letter-spacing: -.04em; margin: 12px 0 3px; }
 .metric-alert strong { color: #d05a42; }
 h2 { font-size: 1.6rem; margin: 0; }
