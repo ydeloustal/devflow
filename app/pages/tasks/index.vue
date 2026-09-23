@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TaskPriority, TaskStatus } from '~/types/devflow'
 
-const { tasks, totalTasks, completedTasks, pendingTasks, urgentTasks, completionRate, totalEstimatedHours } = useTasks()
+const { tasks, totalTasks, completedTasks, pendingTasks, urgentTasks, completionRate, totalEstimatedHours, updateTaskStatus, deleteTask } = useTasks()
 const { searchQuery, selectedStatus, selectedPriority, selectedAssigneeId, filteredTasks, resetFilters } = useTaskFilters(tasks)
 
 useSeoMeta({ title: 'Tâches | DevFlow', description: 'Pilotez les tâches et le sprint de l’agence DevSquad.' })
@@ -11,6 +11,11 @@ const priorityLabels: Record<TaskPriority, string> = { low: 'Basse', medium: 'Mo
 const assignees = computed(() => [...new Map(tasks.value.filter((task) => task.assignee).map((task) => [task.assignee!.id, task.assignee!])).values()])
 const hasFilters = computed(() => Boolean(searchQuery.value || selectedStatus.value !== 'all' || selectedPriority.value !== 'all' || selectedAssigneeId.value !== 'all'))
 const formatDate = (date: string) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short' }).format(new Date(date))
+const handleDelete = (id: string) => {
+  if (window.confirm('Supprimer cette tâche ?')) {
+    deleteTask(id)
+  }
+}
 </script>
 
 <template>
@@ -35,12 +40,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('fr-FR', { day: 'nu
         <button v-if="hasFilters" class="clear" type="button" @click="resetFilters">Réinitialiser</button>
       </div>
       <div v-if="filteredTasks.length" class="task-list">
-        <NuxtLink v-for="task in filteredTasks" :key="task.id" class="task-row" :to="`/tasks/${task.id}`">
-          <span class="status-dot" :class="`status-${task.status}`"></span>
-          <span class="task-main"><strong>{{ task.title }}</strong><small>{{ task.tags.join(' · ') }} · {{ formatDate(task.createdAt) }}</small></span>
-          <span class="priority" :class="`priority-${task.priority}`">{{ priorityLabels[task.priority] }}</span>
-          <UserAvatar :user="task.assignee" size="sm" /><span class="arrow">→</span>
-        </NuxtLink>
+        <TaskCard v-for="task in filteredTasks" :key="task.id" :task="task" :priority-label="priorityLabels[task.priority]" :status-labels="statusLabels" @status-change="updateTaskStatus(task.id, $event)" @delete="handleDelete(task.id)" />
       </div>
       <div v-else class="empty"><strong>Aucune tâche trouvée</strong><span>Modifiez vos filtres pour élargir la recherche.</span></div>
     </section>
@@ -68,13 +68,7 @@ h2 { font-size: 1.6rem; margin: 0; }
 input, select { background: transparent; border: 0; font: inherit; min-width: 0; outline: 0; padding: 11px 0; width: 100%; }
 select { background: #fff; border: 1px solid #e0e7e1; border-radius: 6px; color: #45574b; padding: 11px; width: auto; }
 .clear { background: none; border: 0; color: #4c9d50; cursor: pointer; font: inherit; font-size: .8rem; font-weight: 700; padding: 0 8px; }
-.task-list { border-top: 1px solid #dfe7e1; }
-.task-row { align-items: center; border-bottom: 1px solid #dfe7e1; color: #17211b; display: flex; gap: 16px; padding: 18px 8px; text-decoration: none; }
-.task-row:hover { background: #eff5ed; }
-.status-dot { border: 3px solid #aebeb2; border-radius: 50%; height: 12px; width: 12px; }
-.status-in_progress { border-color: #e7a936; }.status-in_review { border-color: #6995d7; }.status-done { background: #4c9d50; border-color: #4c9d50; }
-.task-main { display: grid; flex: 1; gap: 5px; min-width: 0; }.task-main strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }.task-main small { color: #829087; font-size: .78rem; }
-.priority { border-radius: 4px; font-size: .7rem; font-weight: 800; padding: 5px 8px; }.priority-urgent { background: #fbe4df; color: #b4432f; }.priority-high { background: #fff0d4; color: #9b680d; }.priority-medium { background: #e3eefb; color: #3c6da5; }.priority-low { background: #e7f2e7; color: #3f8041; }
-.arrow { color: #8b9b90; font-size: 1.2rem; }.empty { border: 1px dashed #cbd8cd; display: grid; gap: 8px; padding: 48px; text-align: center; }.empty span { color: #718078; font-size: .9rem; }
-@media (max-width: 800px) { .metrics { grid-template-columns: repeat(2, 1fr); margin: 35px 0; } .page-header { align-items: flex-start; flex-direction: column; gap: 25px; } .task-row { gap: 9px; } .priority { display: none; } }
+.task-list { display: grid; gap: 12px; }
+.empty { border: 1px dashed #cbd8cd; display: grid; gap: 8px; padding: 48px; text-align: center; }.empty span { color: #718078; font-size: .9rem; }
+@media (max-width: 800px) { .metrics { grid-template-columns: repeat(2, 1fr); margin: 35px 0; } .page-header { align-items: flex-start; flex-direction: column; gap: 25px; } }
 </style>

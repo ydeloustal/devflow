@@ -28,11 +28,9 @@ export const useTasks = () => {
   }
 
   const updateTaskStatus = (id: string, status: TaskStatus) => {
-    const task = getTaskById(id)
-    if (task) {
-      task.status = status
-      task.completedAt = status === 'done' ? new Date().toISOString().slice(0, 10) : undefined
-    }
+    taskList.value = taskList.value.map((task) => task.id === id
+      ? { ...task, status, completedAt: status === 'done' ? new Date().toISOString().slice(0, 10) : undefined }
+      : task)
   }
 
   const deleteTask = (id: string) => {
