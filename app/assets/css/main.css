@@ -1,0 +1,16 @@
+@font-face {
+  font-family: "TBF";
+  src: url("~/assets/fonts/THE BOLD FONT - FREE VERSION - 2023.otf") format("otf");
+  font-weight: bold;
+  font-style: bold;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "TBF", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+body {
+  font-family: "TBF", sans-serif;
+}
